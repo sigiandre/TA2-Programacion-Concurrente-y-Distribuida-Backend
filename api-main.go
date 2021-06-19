@@ -10,7 +10,6 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/bitly/go-simplejson"
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 )
@@ -92,18 +91,11 @@ func getCategory(w http.ResponseWriter, r *http.Request) {
 
 	k := 20 + rand.Intn(20)
 	fmt.Println(k)
-	result := testCase(bdongs, bdong, k)
-	fmt.Printf("Predicted: %s, Actual: %s\n", result[0].key, bdong.Sector)
-
-	json := simplejson.New()
-	json.Set("knn", result[0].key)
-	json.Set("actual", bdong.Sector)
-	json.Set("predicted", result[0].key == bdong.Sector)
 
 	bdongs = append(bdongs, bdong)
 
-	payload, _ := json.MarshalJSON()
-	w.Write(payload)
+	//payload, _ := json.MarshalJSON()
+	//w.Write(payload)
 }
 
 // Add new ong
@@ -140,7 +132,7 @@ func main() {
 	// Start server
 	port := ":8000"
 	fmt.Println("Escuchando en " + port)
-	main3()
+	//main3()
 	log.Fatal(http.ListenAndServe(port, handlers.CORS(headers, methods, origins)(r)))
 
 }

@@ -26,21 +26,9 @@ func main3() {
 	for x := 0; x < len(testSet); x++ {
 
 	}
-	for x := range testSet {
-		result := testCase(trainSet, testSet[x], k)
-		predictions = append(predictions, result[0].key)
-		fmt.Printf("Predicted: %s, Actual: %s\n", result[0].key, testSet[x].Institucion)
-	}
 
 	accuracy := getAccuracy(testSet, predictions)
 	fmt.Printf("Accuracy: %f%s\n", accuracy, "%")
-}
-
-func testCase(trainSetA []BDONG, testSetObject BDONG, k int) sortedClassVotes {
-	fmt.Println(testSetObject)
-	neighbors := getNeighbors(trainSetA, testSetObject, k)
-	result := getResponse(neighbors)
-	return result
 }
 
 func getAccuracy(testSet []BDONG, predictions []string) float64 {
