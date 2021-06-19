@@ -29,7 +29,7 @@ func main3() {
 	for x := range testSet {
 		result := testCase(trainSet, testSet[x], k)
 		predictions = append(predictions, result[0].key)
-		fmt.Printf("Predicted: %s, Actual: %s\n", result[0].key, testSet[x].Ke)
+		fmt.Printf("Predicted: %s, Actual: %s\n", result[0].key, testSet[x].Institucion)
 	}
 
 	accuracy := getAccuracy(testSet, predictions)
@@ -47,7 +47,7 @@ func getAccuracy(testSet []BDONG, predictions []string) float64 {
 	correct := 0
 
 	for x := range testSet {
-		if testSet[x].Ke == predictions[x] {
+		if testSet[x].Institucion == predictions[x] {
 			correct += 1
 		}
 	}
@@ -70,7 +70,7 @@ func getResponse(neighbors []BDONG) sortedClassVotes {
 	classVotes := make(map[string]int)
 
 	for x := range neighbors {
-		response := neighbors[x].Ke
+		response := neighbors[x].Institucion
 		if contains(classVotes, response) {
 			classVotes[response] += 1
 		} else {
@@ -126,12 +126,6 @@ func euclidianDistance(instanceOne BDONG, instanceTwo BDONG) float64 {
 	var distance float64
 
 	distance += math.Pow(float64((instanceOne.Numero - instanceTwo.Numero)), 2)
-	distance += math.Pow(float64((instanceOne.Institucion - instanceTwo.Institucion)), 2)
-	distance += math.Pow(float64((instanceOne.Departamento - instanceTwo.Departamento)), 2)
-	distance += math.Pow(float64((instanceOne.Provincia - instanceTwo.Provincia)), 2)
-	distance += math.Pow(float64((instanceOne.Distrito - instanceTwo.Distrito)), 2)
-	distance += math.Pow(float64((instanceOne.Representante - instanceTwo.Representante)), 2)
-	distance += math.Pow(float64((instanceOne.Sector - instanceTwo.Sector)), 2)
 
 	return math.Sqrt(distance)
 }
@@ -143,11 +137,10 @@ func errHandle(err error) {
 }
 
 func contains(votesMap map[string]int, name string) bool {
-	for s, _ := range votesMap {
+	for s := range votesMap {
 		if s == name {
 			return true
 		}
 	}
-
 	return false
 }
